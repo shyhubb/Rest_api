@@ -19,12 +19,16 @@ public class UserController {
     public ResponseEntity<String> registerUser(@RequestBody User user) {
         String result = userService.createAccount(user);
 
-        // Nếu kết quả trả về là "Email đã tồn tại", trả về mã HTTP 400 (Bad Request)
-        if (result.equals("Email đã tồn tại!")) {
-            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        switch (result) {
+            case "Email đã tồn tại!":
+                return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+            case "Vui lòng nhập đúng định dạng email: example@gmail.com":
+                return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+            case "Email không được để trống!":
+                return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+            default:
+                // Nếu kết quả trả về là thành công (tạo tài khoản thành công)
+                return new ResponseEntity<>(result, HttpStatus.CREATED);
         }
-
-        // Nếu tạo tài khoản thành công, trả về mã HTTP 201 (Created)
-        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 }

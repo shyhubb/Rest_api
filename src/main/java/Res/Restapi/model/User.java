@@ -2,25 +2,18 @@ package Res.Restapi.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Column;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import java.time.Instant; // Sử dụng Instant để lưu thời gian UTC
-import java.util.List;
 
 @Entity
 public class User {
-
     @Id
     private String email;
     private String name;
     private String password;
     private String role;
-
-    // Mối quan hệ One-to-Many
-    @OneToMany(mappedBy = "user") // "user" là tên thuộc tính trong lớp Note
-    private List<Note> notes;
 
     // Cột thời gian khi tạo (UTC)
     @Column(nullable = false, updatable = false)
@@ -32,6 +25,7 @@ public class User {
 
     public User() {
         this.role = "ROLE_USER";
+        getCreatedAt();
     }
 
     public User(String email, String password, String name) {
@@ -39,6 +33,7 @@ public class User {
         this.email = email;
         this.name = name;
         this.password = password;
+        getCreatedAt();
     }
 
     public String getEmail() {
@@ -87,14 +82,6 @@ public class User {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public List<Note> getNotes() {
-        return notes;
-    }
-
-    public void setNotes(List<Note> notes) {
-        this.notes = notes;
     }
 
     // Hàm được gọi trước khi đối tượng được lưu vào cơ sở dữ liệu (insert)
