@@ -18,12 +18,13 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
         String result = userService.createAccount(user);
-        // Kiểm tra nếu kết quả trả về là "Tạo tài khoản thành công!" thì trả về mã HTTP
-        // 201 (Created)
-        if (result.equals("Email da ton tai!")) {
-            return new ResponseEntity<>(result, HttpStatus.CREATED);
+
+        // Nếu kết quả trả về là "Email đã tồn tại", trả về mã HTTP 400 (Bad Request)
+        if (result.equals("Email đã tồn tại!")) {
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
-        // Nếu có lỗi (email đã tồn tại) trả về mã HTTP 400 (Bad Request)
-        return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+
+        // Nếu tạo tài khoản thành công, trả về mã HTTP 201 (Created)
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 }

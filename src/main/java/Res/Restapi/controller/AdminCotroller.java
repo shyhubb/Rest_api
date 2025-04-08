@@ -17,7 +17,7 @@ public class AdminCotroller {
 
     @GetMapping("/findAllUser")
     public List<User> findAllUser() {
-        return adminService.findAllUser();
+        return adminService.getAllUsers();
     }
 
 }
