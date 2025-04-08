@@ -3,7 +3,6 @@ package Res.Restapi.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import Res.Restapi.model.User;
 import Res.Restapi.repository.UserRepository;
 
@@ -43,7 +42,6 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         // Lưu thông tin người dùng vào cơ sở dữ liệu
-
         userRepository.save(user);
 
         return "Tạo tài khoản thành công!"; // Trả về thông báo thành công
