@@ -15,4 +15,12 @@ public class AdminService {
     public List<User> getAllUsers() {
         return adminRepository.findAll(); // Trả về danh sách người dùng
     }
+
+    public String chageRole(User user) {
+        if (adminRepository.existsByEmail(user.getEmail()))
+            return "Không tìm tháy người đùng có email: " + user.getEmail();
+        user.setRole("ROLE_ADMIN");
+        adminRepository.save(user);
+        return "SET ROLE_ADMIN THÀNH CÔNG CHO: " + user.getEmail();
+    }
 }

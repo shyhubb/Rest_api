@@ -17,6 +17,8 @@ public class User {
 
     // Cột thời gian khi tạo (UTC)
     @Column(nullable = false, updatable = false)
+    // nulltable = flase -> chi dinh cot khong duoc null
+    // updatable = false -> khong cho phép cap nhat lai truong này sau khi đã lưu
     private Instant createdAt;
 
     // Cột thời gian khi cập nhật (UTC)
