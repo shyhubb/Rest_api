@@ -31,4 +31,15 @@ public class AdminService {
         return "SET ROLE_ADMIN THÀNH CÔNG CHO: " + user.getEmail();
     }
 
+    public String deleteUser(String email) {
+        if (!adminRepository.existsByEmail(email))
+            return "Khong tim thay user: " + email + " !"; // check nguoi dung co ton tai khong
+        User user = adminRepository.findByEmail(email);
+        if (!user.getRole().equals("ROLE_ADMIN")) {
+            adminRepository.delete(user);
+            return "Xoa user: " + user.getEmail() + " Thanh cong !";
+        }
+        return "Khong the xoa ADMIN he thong!";
+    }
+
 }

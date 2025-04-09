@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("api/admin")
@@ -36,6 +37,14 @@ public class AdminCotroller {
         }
         // Trả về OK nếu thay đổi thành công
         return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @PostMapping("/deleteuser/{email}")
+    public ResponseEntity<String> deleteUSer(@PathVariable String email) {
+        String mess = adminService.deleteUser(email);
+        if (mess.equals("Xoa user: " + email + " Thanh cong !"))
+            return new ResponseEntity<>(mess, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(mess, HttpStatus.OK);
     }
 
 }
