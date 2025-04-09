@@ -9,7 +9,7 @@
 
  + user api
 
-   http://localhost:8080/api/user/login  // login
+  http://localhost:8080/api/user/login  // login
 
   http://localhost:8080/api/user/register   // register account 
 
