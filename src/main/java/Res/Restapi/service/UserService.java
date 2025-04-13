@@ -14,6 +14,7 @@ public class UserService {
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); // Khởi tạo BCryptPasswordEncoder
 
+    // Method to create a new account
     public String createAccount(User user) {
         String email = user.getEmail().toLowerCase().trim(); // Chuyển email thành chữ thường và loại bỏ khoảng trắng
                                                              // đầu/cuối
@@ -47,4 +48,28 @@ public class UserService {
         return "Tạo tài khoản thành công!"; // Trả về thông báo thành công
     }
 
+    // Method to handle user login
+    public String login(String email, String password) {
+        // Check if email exists
+        if (!userRepository.existsByEmail(email)) {
+            return "Email không tồn tại trong hệ thống!";
+        }
+
+        // Find the user by email
+        User user = userRepository.findByEmail(email);
+
+        // If user is found, check if the password matches
+        if (user != null) {
+            // Compare the password entered by the user with the encoded password
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                return "Đăng nhập thành công!"; // Return success message
+            } else {
+                return "Mật khẩu không chính xác!"; // Return error message for incorrect password
+            }
+        }
+
+        // In case the user is not found (this should not happen because we checked
+        // email existence earlier)
+        return "Lỗi hệ thống, vui lòng thử lại!";
+    }
 }
