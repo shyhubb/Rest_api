@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import Res.Restapi.dto.*;
 import Res.Restapi.model.User;
 import Res.Restapi.service.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/auth")
