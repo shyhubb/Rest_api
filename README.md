@@ -7,10 +7,10 @@
  http://localhost:8080/api/admin/setrole/{email}   // change role admin by email
 
 
- + user api
+ + auth api
 
-  http://localhost:8080/api/user/login  // login
+  http://localhost:8080/api/auth/login  // login
 
-  http://localhost:8080/api/user/register   // register account 
+  http://localhost:8080/api/auth/register   // register account 
 
   
